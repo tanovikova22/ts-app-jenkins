@@ -4,9 +4,10 @@ node {
 
         echo "last commit:"
         sh "git log --name-status HEAD^..HEAD"
+        echo BUILD_NUMBER
     }
 
     stage("installation") {
-        sh "npm install"
+        sh "node -v"
     }
 }
