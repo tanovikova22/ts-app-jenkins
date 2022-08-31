@@ -1,7 +1,10 @@
 node {
-    agent any
+    stage("checkout") {
+        git branch "master"
+            credentialsId: "git-personal",
+            url: "https://github.com/tanovikova22/ts-app-jenkins.git"
 
-    stage("preparing") {
-        sh "init"
+        sh "ls -la"
+
     }
 }
