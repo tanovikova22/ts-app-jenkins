@@ -1,0 +1,27 @@
+{
+  "name": "ts-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tanovikova22/ts-app-jenkins.git"
+  },
+  "keywords": [
+    "jenkins"
+  ],
+  "author": "tanovikova22",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanovikova22/ts-app-jenkins/issues"
+  },
+  "homepage": "https://github.com/tanovikova22/ts-app-jenkins#readme",
+  "devDependencies": {
+    "@types/jest": "^29.0.0",
+    "ts-jest": "^28.0.8",
+    "typescript": "^4.8.2"
+  }
+}
