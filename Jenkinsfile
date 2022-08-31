@@ -12,6 +12,10 @@ node {
         stage("installation") {
             sh "npm install"
         }
+
+        stage("tests") {
+            sh "npm test"
+        }
     }
 
 }
