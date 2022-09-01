@@ -22,4 +22,10 @@ node {
         }
     }
 
+    post {
+        always {
+            emailext body: currentBuild.result, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Status build # ${BUILD_NUMBER} - ${currentBuild.result}'
+        }
+    }
+
 }
