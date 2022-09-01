@@ -33,10 +33,10 @@ node {
                     [$class: 'CulpritsRecipientProvider'],
                     [$class: 'RequesterRecipientProvider'],
                     [$class: 'DevelopersRecipientProvider'],
-                    [$class: 'FailingTestSuspectsRecipientProvider'             ], 
+                    [$class: 'FailingTestSuspectsRecipientProvider'], 
                     [$class: 'FirstFailingBuildSuspectsRecipientProvider']
                 ]
-                
+
         String buildStatus = currentBuild.result
         String resultMessage = ''
 
@@ -45,10 +45,16 @@ node {
         } else {
             String log = currentBuild.rawBuild.getLog(40).join('\n')
             resultMessage = '
-                <h3>Build is not sucess</h3>
+                <h3>Build is not succeed</h3>
                 <pre>Last messages of logs ${log}</pre>
             '
         }
-        emailext body: resultMessage, recipientProviders: to,subject: 'Status build # ${BUILD_NUMBER} - ${currentBuild.result}'    
+
+        if (to != null && !to.isEmpty()) {
+            echo 'Sending email ...'
+            emailext body: resultMessage, recipientProviders: to,subject: 'Status build # ${BUILD_NUMBER} - ${currentBuild.result}'    
+        } else {
+            echo 'There is no resepients'
+        }
     }
 }
