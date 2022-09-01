@@ -29,6 +29,14 @@ node {
     }
 
     finally {
+        def to = [
+                    [$class: 'CulpritsRecipientProvider'],
+                    [$class: 'RequesterRecipientProvider'],
+                    [$class: 'DevelopersRecipientProvider'],
+                    [$class: 'FailingTestSuspectsRecipientProvider'             ], 
+                    [$class: 'FirstFailingBuildSuspectsRecipientProvider']
+                ]
+                
         String buildStatus = currentBuild.result
         String resultMessage = ''
 
@@ -41,14 +49,6 @@ node {
                 <pre>Last messages of logs ${log}</pre>
             '
         }
-        emailext body: resultMessage,
-                 recipientProviders: [
-                    [$class: 'CulpritsRecipientProvider'],
-                    [$class: 'RequesterRecipientProvider'],
-                    [$class: 'DevelopersRecipientProvider'],
-                    [$class: 'FailingTestSuspectsRecipientProvider'             ], 
-                    [$class: 'FirstFailingBuildSuspectsRecipientProvider']
-                ],
-                 subject: 'Status build # ${BUILD_NUMBER} - ${currentBuild.result}'    
+        emailext body: resultMessage, recipientProviders: to,subject: 'Status build # ${BUILD_NUMBER} - ${currentBuild.result}'    
     }
 }
