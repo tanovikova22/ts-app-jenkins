@@ -51,7 +51,7 @@ node {
 
         if (to != null && !to.isEmpty()) {
             echo 'Sending email ...'
-            emailext(body: resultMessage, mimeType: 'text/html', to: to, subject: "Status build # ${BUILD_NUMBER} - ${currentBuild.result}")    
+            emailext(body: resultMessage, mimeType: 'text/html', to: '1a64d35c09-1a6caa@inbox.mailtrap.io', subject: "Status build # ${BUILD_NUMBER} - ${currentBuild.result}")    
         } else {
             echo 'There is no resepients'
         }
