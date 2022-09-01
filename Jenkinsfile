@@ -29,13 +29,11 @@ node {
     }
 
     finally {
-        def to = [
-                    [$class: 'CulpritsRecipientProvider'],
-                    [$class: 'RequesterRecipientProvider'],
-                    [$class: 'DevelopersRecipientProvider'],
-                    [$class: 'FailingTestSuspectsRecipientProvider'], 
-                    [$class: 'FirstFailingBuildSuspectsRecipientProvider']
-                ]
+        def to = emailextrecipients([
+                [$class: 'CulpritsRecipientProvider'],
+                [$class: 'DevelopersRecipientProvider'],
+                [$class: 'RequesterRecipientProvider']
+        ])
 
         String buildStatus = currentBuild.result
         String resultMessage = ''
@@ -56,5 +54,7 @@ node {
         } else {
             echo 'There is no resepients'
         }
+
+        echo 'Email to ${to} sent'
     }
 }
