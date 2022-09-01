@@ -29,12 +29,11 @@ node {
     }
 
     finally {
-        // def to = emailextrecipients([
-        //         [$class: 'CulpritsRecipientProvider'],
-        //         [$class: 'DevelopersRecipientProvider'],
-        //         [$class: 'RequesterRecipientProvider']
-        // ])
-        def to = 'tanya.novikova2203@gmail.com'
+        def to = emailextrecipients([
+                [$class: 'CulpritsRecipientProvider'],
+                [$class: 'DevelopersRecipientProvider'],
+                [$class: 'RequesterRecipientProvider']
+        ])
 
         String buildStatus = currentBuild.result
         String resultMessage = ''
