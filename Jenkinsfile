@@ -29,5 +29,26 @@ node {
     }
 
     finally {
-        emailext body: currentBuild.result, recipientProviders: [buildUser(), contributor(), upstreamDevelopers(), culprits(), developers()], subject: 'Status build # ${BUILD_NUMBER} - ${currentBuild.result}'    }
+        String buildStatus = currentBuild.result
+        String resultMessage = ''
+
+        if (buildStatus == 'SUCCESS') {
+            resultMessage = '<h3>Your build is succeed</h3>'
+        } else {
+            String log = currentBuild.rawBuild.getLog(40).join('\n')
+            resultMessage = '
+                <h3>Build is not sucess</h3>
+                <pre>Last messages of logs ${log}</pre>
+            '
+        }
+        emailext body: resultMessage,
+                 recipientProviders: [
+                    [$class: 'CulpritsRecipientProvider'],
+                    [$class: 'RequesterRecipientProvider'],
+                    [$class: 'DevelopersRecipientProvider'],
+                    [$class: 'FailingTestSuspectsRecipientProvider'             ], 
+                    [$class: 'FirstFailingBuildSuspectsRecipientProvider']
+                ],
+                 subject: 'Status build # ${BUILD_NUMBER} - ${currentBuild.result}'    
+    }
 }
