@@ -29,13 +29,13 @@ node {
     }
 
     finally {
-        def to = emailextrecepients([
+        def to = [
                     [$class: 'CulpritsRecipientProvider'],
                     [$class: 'RequesterRecipientProvider'],
                     [$class: 'DevelopersRecipientProvider'],
                     [$class: 'FailingTestSuspectsRecipientProvider'], 
                     [$class: 'FirstFailingBuildSuspectsRecipientProvider']
-                ])
+                ]
 
         String buildStatus = currentBuild.result
         String resultMessage = ''
@@ -44,15 +44,15 @@ node {
             resultMessage = '<h3>Your build is succeed</h3>'
         } else {
             String log = currentBuild.rawBuild.getLog(40).join('\n')
-            resultMessage = '
+            resultMessage = '''
                 <h3>Build is not succeed</h3>
                 <pre>Last messages of logs ${log}</pre>
-            '
+            '''
         }
 
         if (to != null && !to.isEmpty()) {
             echo 'Sending email ...'
-            emailext(body: resultMessage, mimetype: 'text/html', to: to, subject: 'Status build # ${BUILD_NUMBER} - ${currentBuild.result}')    
+            emailext(body: resultMessage, mimeType: 'text/html', to: to, subject: 'Status build # ${BUILD_NUMBER} - ${currentBuild.result}')    
         } else {
             echo 'There is no resepients'
         }
