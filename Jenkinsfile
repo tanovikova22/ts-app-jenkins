@@ -39,22 +39,23 @@ node {
         String resultMessage = ''
 
         if (buildStatus == 'SUCCESS') {
-            resultMessage = '<h3>Your build is succeed</h3>'
+            resultMessage = "<h3>Your build is succeed</h3>"
         } else {
             String log = currentBuild.rawBuild.getLog(40).join('\n')
-            resultMessage = '''
-                <h3>Build is not succeed</h3>
-                <pre>Last messages of logs ${log}</pre>
-            '''
+            // resultMessage = '''
+            //     <h3>Build is not succeed</h3>
+            //     <pre>Last messages of logs ${log}</pre>
+            // '''
+            resultMessage = "Error"
         }
 
         if (to != null && !to.isEmpty()) {
             echo 'Sending email ...'
-            emailext(body: resultMessage, mimeType: 'text/html', to: to, subject: 'Status build # ${BUILD_NUMBER} - ${currentBuild.result}')    
+            emailext(body: resultMessage, mimeType: 'text/html', to: to, subject: "Status build # ${BUILD_NUMBER} - ${currentBuild.result}")    
         } else {
             echo 'There is no resepients'
         }
 
-        echo 'Email to ${to} sent'
+        echo "Email to ${to} sent"
     }
 }
