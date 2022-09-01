@@ -29,7 +29,5 @@ node {
     }
 
     finally {
-        emailext body: currentBuild.result, recipients: 'tanya.novikova2203@gmail.com', subject: 'Status build # ${BUILD_NUMBER} - ${currentBuild.result}'
-    }
-
+        emailext body: currentBuild.result, recipientProviders: [buildUser(), contributor(), upstreamDevelopers(), culprits(), developers()], subject: 'Status build # ${BUILD_NUMBER} - ${currentBuild.result}'    }
 }
