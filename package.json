@@ -21,6 +21,9 @@
   "homepage": "https://github.com/tanovikova22/ts-app-jenkins#readme",
   "devDependencies": {
     "@types/jest": "^29.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "eslint": "^8.23.0",
     "ts-jest": "^28.0.8",
     "typescript": "^4.8.2"
   }

@@ -16,6 +16,10 @@ node {
         stage("tests") {
             sh "npm test"
         }
+
+        stage("lint") {
+            sh "npx eslint --ext .ts ."
+        }
     }
 
 }
