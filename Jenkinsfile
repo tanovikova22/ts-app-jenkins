@@ -44,10 +44,10 @@ node {
             resultMessage = '<h3>Your build is succeed</h3>'
         } else {
             String log = currentBuild.rawBuild.getLog(40).join('\n')
-            resultMessage = '
+            resultMessage = '''
                 <h3>Build is not succeed</h3>
                 <pre>Last messages of logs ${log}</pre>
-            '
+            '''
         }
 
         if (to != null && !to.isEmpty()) {
