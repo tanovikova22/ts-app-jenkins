@@ -29,11 +29,12 @@ node {
     }
 
     finally {
-        def to = emailextrecipients([
-                [$class: 'CulpritsRecipientProvider'],
-                [$class: 'DevelopersRecipientProvider'],
-                [$class: 'RequesterRecipientProvider']
-        ])
+        // def to = emailextrecipients([
+        //         [$class: 'CulpritsRecipientProvider'],
+        //         [$class: 'DevelopersRecipientProvider'],
+        //         [$class: 'RequesterRecipientProvider']
+        // ])
+        def to = 'tanya.novikova2203@gmail.com'
 
         String buildStatus = currentBuild.result
         String resultMessage = ''
@@ -50,11 +51,12 @@ node {
 
         if (to != null && !to.isEmpty()) {
             echo 'Sending email ...'
-            emailext(body: resultMessage, mimeType: 'text/html', to: to, subject: "Status build # ${BUILD_NUMBER} - ${currentBuild.result}")    
+            emailext(body: resultMessage, mimeType: 'text/html', to: to, subject: "Status build # ${BUILD_NUMBER} - ${currentBuild.result}")
+            echo "Email to ${to} sent"
+    
         } else {
             echo 'There is no resepients'
         }
 
-        echo "Email to ${to} sent"
     }
 }
